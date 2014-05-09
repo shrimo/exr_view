@@ -10,3 +10,5 @@ PIL, the Python Image Library, provides image processing functionality and suppo
 OpenEXR are bindings for ILM's OpenEXR image file format. http://www.openexr.com/index.html
 
 Unofficial Windows Binaries for Python Extension Packages http://www.lfd.uci.edu/~gohlke/pythonlibs/#openexr
+
+plus Cython setup

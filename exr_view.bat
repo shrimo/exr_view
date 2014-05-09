@@ -1,1 +1,1 @@
-E:\Python27\python.exe E:\exr_view\exr_view.py %1
+C:\Python27\python.exe D:\code\OpenEXR\exr_view_v01\exr_view.py %1
