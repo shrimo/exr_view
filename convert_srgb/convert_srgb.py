@@ -1,3 +1,23 @@
+import OpenEXR
+import Imath
+import sys, array
+
+def Put_Exr_Data (_ExrFile):
+    
+    file = OpenEXR.InputFile(_ExrFile)
+    pt = Imath.PixelType(Imath.PixelType.FLOAT)
+    dw = file.header()['dataWindow']
+    size = (dw.max.x - dw.min.x + 1, dw.max.y - dw.min.y + 1)
+
+    RedStr = file.channel('R', pt)
+    GreenStr = file.channel('G', pt)
+    BlueStr = file.channel('B', pt)
+
+    Red = array.array('f', RedStr)
+    Green = array.array('f', GreenStr)
+    Blue = array.array('f', BlueStr)
+    return (Red,Green,Blue,size)
+
 def EncodeToSRGB(v):
     if (v <= 0.0031308):
         return (v * 12.92) * 255.0

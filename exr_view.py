@@ -1,38 +1,24 @@
 import OpenEXR
-import Imath
 from PIL import Image, ImageDraw 
 import sys, array
 
-exrfile=sys.argv[1]
-
 print 'PyExrView v0.1a'
+
+exrfile=sys.argv[1]
 print 'open',exrfile
 
-file = OpenEXR.InputFile(exrfile)
-pt = Imath.PixelType(Imath.PixelType.FLOAT)
-dw = file.header()['dataWindow']
-size = (dw.max.x - dw.min.x + 1, dw.max.y - dw.min.y + 1)
-
-RedStr = file.channel('R', pt)
-GreenStr = file.channel('G', pt)
-BlueStr = file.channel('B', pt)
-
-Red = array.array('f', RedStr)
-Green = array.array('f', GreenStr)
-Blue = array.array('f', BlueStr)
-
-
 import convert_srgb
+_RGB_size_=convert_srgb.Put_Exr_Data(exrfile)
+
 print convert_srgb.format(OpenEXR.InputFile(exrfile).header())
 
 print 'start convert srgb'
-convert_srgb.ConvertSRGB(Red,Green,Blue)
+convert_srgb.ConvertSRGB(_RGB_size_[0],_RGB_size_[1],_RGB_size_[2])
 print 'finale'
-
     
-rgbf = [Image.fromstring("F", size, Red.tostring())]
-rgbf.append(Image.fromstring("F", size, Green.tostring()))
-rgbf.append(Image.fromstring("F", size, Blue.tostring()))
+rgbf = [Image.fromstring("F", _RGB_size_[3], _RGB_size_[0].tostring())]
+rgbf.append(Image.fromstring("F", _RGB_size_[3], _RGB_size_[1].tostring()))
+rgbf.append(Image.fromstring("F", _RGB_size_[3], _RGB_size_[2].tostring()))
 
 rgb8 = [im.convert("L") for im in rgbf]
 
