@@ -2,12 +2,10 @@ import OpenEXR
 import Imath
 from PIL import Image, ImageDraw 
 import sys, array
-import os
-import json
 
 exrfile=sys.argv[1]
 
-print 'ExrView v0.1a'
+print 'PyExrView v0.1a'
 print 'open',exrfile
 
 file = OpenEXR.InputFile(exrfile)
@@ -39,12 +37,8 @@ rgbf.append(Image.fromstring("F", size, Blue.tostring()))
 rgb8 = [im.convert("L") for im in rgbf]
 
 exrimage = Image.merge("RGB", rgb8)
-print 'view'
+print 'draw'
 draw = ImageDraw.Draw(exrimage)
 draw.text((0, 0),exrfile,(255,255,255))
+print 'view'
 exrimage.show()
-
-
-
-
-

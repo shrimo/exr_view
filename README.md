@@ -1,4 +1,4 @@
-exr_view
+PyExrView
 ========
 
 Open EXR files viewer (Open EXR format viewer)
