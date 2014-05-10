@@ -16,7 +16,8 @@ def Put_Exr_Data (_ExrFile):
     Red = array.array('f', RedStr)
     Green = array.array('f', GreenStr)
     Blue = array.array('f', BlueStr)
-    return (Red,Green,Blue,size)
+    HR_exr=OpenEXR.InputFile(_ExrFile).header()
+    return (Red,Green,Blue,size,HR_exr)
 
 def EncodeToSRGB(v):
     if (v <= 0.0031308):

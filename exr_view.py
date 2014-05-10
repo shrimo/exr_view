@@ -1,4 +1,3 @@
-import OpenEXR
 from PIL import Image, ImageDraw 
 import sys, array
 
@@ -7,18 +6,18 @@ print 'PyExrView v0.1a'
 exrfile=sys.argv[1]
 print 'open',exrfile
 
-import convert_srgb
-_RGB_size_=convert_srgb.Put_Exr_Data(exrfile)
+import exr_handler
+_EXR_data_=exr_handler.Put_Exr_Data(exrfile)
 
-print convert_srgb.format(OpenEXR.InputFile(exrfile).header())
+print exr_handler.format(_EXR_data_[4])
 
 print 'start convert srgb'
-convert_srgb.ConvertSRGB(_RGB_size_[0],_RGB_size_[1],_RGB_size_[2])
+exr_handler.ConvertSRGB(_EXR_data_[0],_EXR_data_[1],_EXR_data_[2])
 print 'finale'
     
-rgbf = [Image.fromstring("F", _RGB_size_[3], _RGB_size_[0].tostring())]
-rgbf.append(Image.fromstring("F", _RGB_size_[3], _RGB_size_[1].tostring()))
-rgbf.append(Image.fromstring("F", _RGB_size_[3], _RGB_size_[2].tostring()))
+rgbf = [Image.fromstring("F", _EXR_data_[3], _EXR_data_[0].tostring())]
+rgbf.append(Image.fromstring("F", _EXR_data_[3], _EXR_data_[1].tostring()))
+rgbf.append(Image.fromstring("F", _EXR_data_[3], _EXR_data_[2].tostring()))
 
 rgb8 = [im.convert("L") for im in rgbf]
 
