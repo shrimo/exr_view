@@ -2,16 +2,21 @@ import OpenEXR
 import Imath
 import sys, array
 
-def Put_Exr_Data (_ExrFile):
-    
+def Put_Exr_Data (_ExrFile,channels_name):
+
     file = OpenEXR.InputFile(_ExrFile)
     pt = Imath.PixelType(Imath.PixelType.FLOAT)
     dw = file.header()['dataWindow']
     size = (dw.max.x - dw.min.x + 1, dw.max.y - dw.min.y + 1)
-
-    RedStr = file.channel('R', pt)
-    GreenStr = file.channel('G', pt)
-    BlueStr = file.channel('B', pt)
+    
+    if channels_name=='RGB':
+        RedStr = file.channel('R', pt)
+        GreenStr = file.channel('G', pt)
+        BlueStr = file.channel('B', pt)
+    else:
+        RedStr = file.channel(channels_name, pt)
+        GreenStr = file.channel(channels_name, pt)
+        BlueStr = file.channel(channels_name, pt)
 
     Red = array.array('f', RedStr)
     Green = array.array('f', GreenStr)
